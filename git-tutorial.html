@@ -1,0 +1,1098 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Git简明教程</title>
+<!-- 2017-09-21 四 09:57 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="赵之旭" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Git简明教程</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. 安装与首次使用git</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Linux</a></li>
+<li><a href="#sec-1-2">1.2. Windows</a></li>
+<li><a href="#sec-1-3">1.3. 首次使用</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. 初始化项目的git仓库</a></li>
+<li><a href="#sec-3">3. 本地仓库操作</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 基本操作</a></li>
+<li><a href="#sec-3-2">3.2. 基本分支操作</a></li>
+<li><a href="#sec-3-3">3.3. 合并分支</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. 远程仓库操作</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 远程仓库管理</a></li>
+<li><a href="#sec-4-2">4.2. 获取远程仓库数据</a></li>
+<li><a href="#sec-4-3">4.3. 向远程仓库中推送数据</a></li>
+<li><a href="#sec-4-4">4.4. 关联远程分支</a></li>
+<li><a href="#sec-4-5">4.5. 删除远程分支</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. 项目协作</a>
+<ul>
+<li><a href="#sec-5-1">5.1. 私有小型项目协作</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+本文参照 <i>Pro-Git</i> 英文版第二版，介绍了git的基本使用方法，以及简单的多人项目合作流程。
+</p>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 安装与首次使用git</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Linux</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+git 在很多Linux发行版中是自带的，可在命令行中输入 <code>git</code> 来检查是否已安装git。
+</p>
+
+<p>
+如果未安装git，可通过包管理器安装，如Ubuntu中
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ sudo apt-get install git
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Windows</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+Windows 系统需要前往git官网下载安装文件：
+<a href="https://git-scm.com/downloads">https://git-scm.com/downloads</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> 首次使用</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+首次使用git前需要先设置自己的名字和邮箱，该信息在以后提交文件时将作为作者信息一并提交。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git config --global user.name "your name"
+$ git config --global user.mail example@example.com
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 初始化项目的git仓库</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+使用git前需要先初始化项目的git仓库。
+你可以使用 <code>git clone</code> 命令直接从远程克隆一个仓库到本地，如：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git clone https://github.com/libgit2/libgit2
+</pre>
+</div>
+
+<p>
+如果是自己本地建的项目，则需要手动初始化一个仓库：
+</p>
+<ol class="org-ol">
+<li>在项目的根文件目录下打开git bash
+</li>
+<li>输入 <code>git init</code> ，建立项目的本地仓库
+</li>
+<li>（可选）在eclipse中右击项目选择Team-&gt;share project，点finish。Andriod Studio无此步骤。
+此步骤是为了使用IDE自动生成.gitignore文件，若不用IDE也可以手写此文件。
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 本地仓库操作</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 基本操作</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+首先通过下面的两幅图熟悉git项目的结构和文件状态。
+Working Directory是你的工作目录。
+Staging区域是一个缓存区，放置准备提交仓库的文件。
+一旦把staging区域的文件提交到仓库中，就会作为历史记录永久保存下来。
+下面是一系列用于提交文件的命令：
+</p>
+
+<ul class="org-ul">
+<li><code>git add &lt;文件名&gt;</code> 将工作目录的文件添加到staging区域。
+</li>
+<li><code>git add *</code> 添加所有文件到staging区域。
+</li>
+<li><code>git commit</code> 打开一个编辑器编辑说明，然后将staging区域的文件提交到仓库中。
+</li>
+<li><code>git commit -m “说明”</code> 将staging区域的文件提交到仓库中，附带简单说明。
+</li>
+<li><code>git commit -a</code> 将工作区域的文件直接提交，跳过stage操作
+</li>
+<li><code>git status</code> 查看当前的文件状态。
+</li>
+</ul>
+
+<div id="fig:git-status1" class="figure">
+<p><img src="./img/git-status1.png" alt="git-status1.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 1:</span> git项目的结构</p>
+</div>
+
+
+<div id="fig:git-status2" class="figure">
+<p><img src="./img/git-status2.png" alt="git-status2.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 2:</span> 项目文件的不同状态</p>
+</div>
+
+<p>
+举例：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git add README #添加README文件到staging区域
+$ git status #查看当前的文件状态，可以看到README文件已添加到staging区域，并准备提交
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+(use "git reset HEAD &lt;file&gt;..." to unstage)
+new file: README
+</pre>
+</div>
+
+<p>
+  下一步可以提交更改到仓库中
+：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git commit
+</pre>
+</div>
+
+<p>
+这条命令会打开一个编辑器让你编辑提交说明，当你保存退出后，
+git就会创建一个提交记录，附带你刚才编辑的提交说明。
+</p>
+
+<p>
+也许你只想写一条很简短的说明，并不想打开一个编辑器，
+那么也可以在提交命令中附加简短说明，说明放在 <code>-m</code> 参数后，用引号括起来：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git commit -m "Story 182: Fix benchmarks for speed"
+[master 463dc4f] Story 182: Fix benchmarks for speed
+2 files changed, 2 insertions(+)
+create mode 100644 README
+</pre>
+</div>
+
+<p>
+这样就完成了一个提交。
+</p>
+
+<p>
+文件的提交历史可以用 <code>git log</code> 命令查看，不同的参数可以显示不同的格式：
+</p>
+<ul class="org-ul">
+<li><code>git log</code> 查看历史记录
+</li>
+<li><code>git log -p</code> 显示详细更改信息，
+</li>
+<li><code>git log --pretty=oneline</code> 显示简略信息
+</li>
+<li><code>git log --pretty=oneline --graph</code>  显示项目分支合并图。
+</li>
+</ul>
+<p>
+举例：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git log --pretty=oneline
+ca82a6dff817ec66f44342007202690a93763949 changed the version number
+085bb3bcb608e1e8451d4b2432f8ecbe6306e7e7 removed unnecessary test
+a11bef06a3f659402fe7563abf99ad00de2209e6 first commit
+</pre>
+</div>
+
+<p>
+每一条历史记录使用惟一的哈希码标注（就是前面的那串字符）。使用哈希码的前几位
+就可以切换到不同历史记录，即用所选历史记录的文件覆盖当前工作区。在此之前当前
+工作区必须是干净的，即不能有未提交的更改，否则必须提交一次以清空工作区，若不想提交也可以暂时缓存工作区（参见stash的用法）。
+</p>
+
+<ul class="org-ul">
+<li><code>git checkout &lt;hash code&gt;</code> 查看历史记录
+</li>
+</ul>
+<p>
+举例：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout ca82a #切换到ca82a的历史记录。
+$ git checkout master #切换回master分支
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 基本分支操作</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+Git里的分支就是一个可以移动的指针，指向了某个历史记录。
+默认的分支名是 <code>master</code> 。每次提交后， <code>master</code> 都会指向你刚才的提交记录。
+</p>
+<ul class="org-ul">
+<li><code>git branch &lt;new branch nama&gt;</code> 创建一个新分支
+</li>
+<li><code>git checkout -b &lt;new branch name&gt;</code> 创建一个新分支并切换到它
+</li>
+</ul>
+<p>
+举例来说，执行下面的命令将创建一个新的testing分支，指向当前记录。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git branch testing
+</pre>
+</div>
+<p>
+此时的历史记录如下所示：
+</p>
+
+<div id="fig-branch1" class="figure">
+<p><img src="./img/git-branch1.png" alt="git-branch1.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 3:</span> 创建分支，尚未切换分支</p>
+</div>
+
+<p>
+Git有一个特殊的指针名为HEAD，它指向了当前记录。在图中可以看到，
+HEAD指向了master，并未指向刚创建的testing（虽然他们都指向了同一个记录）。
+要切换到testing分支上，依然是使用 <code>git checkout</code> 命令。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout testing
+</pre>
+</div>
+
+<p>
+此时的历史记录如下所示：
+</p>
+
+<div id="fig-branch2" class="figure">
+<p><img src="./img/git-branch2.png" alt="git-branch2.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 4:</span> 切换分支后</p>
+</div>
+
+<p>
+如果此时我们新提交一个记录
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ vim test.rb
+$ git commit -a -m "made a change"
+</pre>
+</div>
+
+<p>
+此时的历史记录就会如下所示。可以看到，HEAD 已经跟随testing分支而不是master分支移动了。
+</p>
+
+<div id="fig-branch3" class="figure">
+<p><img src="./img/git-branch3.png" alt="git-branch3.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 5:</span> 提交新历史记录后</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 合并分支</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+假设现在的分支状况如下所示。首先你有一个master分支，然后你创建了iss53分支并在此工作。
+后来出现了一个需要紧急处理的bug，所以你又在master的基础上创建了hotfix分支。
+</p>
+
+<div id="fig-merging1" class="figure">
+<p><img src="./img/git-merging1.png" alt="git-merging1.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 6:</span> 合并前状态</p>
+</div>
+
+<p>
+假设你的bug已经处理完毕，此时需要将hotfix分支合并到master上，只需执行下面的指令
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout master #首先切换到master
+$ git merge hotfix #合并hotfix
+Updating f42c576..3a0874c
+Fast-forward
+index.html | 2 ++
+1 file changed, 2 insertions(+)
+</pre>
+</div>
+<p>
+此时git使用了最简单的Faster-forward方式合并了分支。此时的历史记录如下所示：
+</p>
+
+<div id="fig-merging2" class="figure">
+<p><img src="./img/git-merging2.png" alt="git-merging2.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 7:</span> 合并hotfix分支</p>
+</div>
+
+<p>
+此时你就可以删除hotfix分支了
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git branch -d hotfix
+Deleted branch hotfix (3a0874c).
+</pre>
+</div>
+
+<p>
+现在你就可以回到iss53分支上继续之前的工作了。假设你工作了一段时间后，历史记录如下所示：
+</p>
+
+<div id="fig-merging3" class="figure">
+<p><img src="./img/git-merging3.png" alt="git-merging3.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 8:</span> 合并iss53前状态</p>
+</div>
+
+
+<p>
+现在依然可以使用之前的方法合并iss53分支：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout master
+Switched to branch 'master'
+$ git merge iss53
+Merge made by the 'recursive' strategy.
+index.html | 1 +
+1 file changed, 1 insertion(+)
+</pre>
+</div>
+
+<p>
+如果iss53和master没有冲突（也就是没有修改相同文件的相同部分）的话，
+git仍将顺利合并，否则会提示检查到冲突：
+</p>
+<pre class="example">
+$ git merge iss53
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+</pre>
+
+<p>
+这意味着你需要打开 <code>index.html</code> 文件并手动解决冲突才能继续合并。
+git会使用标准的冲突标记标注冲突的地方。比如：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD:index.html
+&lt;div id="footer"&gt;contact : email.support@github.com&lt;/div&gt;
+=======
+&lt;div id="footer"&gt;
+please contact us at support@github.com
+&lt;/div&gt;
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; iss53:index.html
+</pre>
+</div>
+
+<p>
+上面的代码表示用等号隔开的上半部分是当前HEAD指向的内容，
+下半部分是要合并到HEAD中的文件内容。
+现在你要么使用HEAD要么使用iss53的代码覆盖上述整个冲突块，
+要么自己合并两个块的代码。处理完后，对冲突的文件运行 <code>git add</code> 命令，
+以标记它们冲突已解决。然后运行 <code>git commit</code> 来完成合并。 
+这次的提交是合并提交，你可以在提交信息中具体说明解决了哪些冲突以备以后查看。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 远程仓库操作</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 远程仓库管理</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li><code>git remote</code> 查看与本地仓库关联的远程仓库名。
+</li>
+</ul>
+<p>
+加上 <code>-v</code> 选项可以查看与之关联的URL。例如：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git remote -v
+origin https://github.com/schacon/ticgit (fetch)
+origin https://github.com/schacon/ticgit (push)
+</pre>
+</div>
+
+<ul class="org-ul">
+<li><code>git remote add &lt;shortname&gt; &lt;url&gt;</code> 添加新远程仓库。
+</li>
+<li><code>git remote show [remote-name]</code> 查看某个远程仓库信息
+</li>
+<li><code>git remote rename [old-name] [new-name]</code> 重命名远程仓库
+</li>
+<li><code>git remote remote rm [remote-name]</code> 删除远程仓库
+</li>
+</ul>
+
+<p>
+例如我想添加一个名为pb的远程仓库：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git remote #此时只有origin
+origin
+$ git remote add pb https://github.com/paulboone/ticgit #添加了pb
+$ git remote -v #多了pb
+origin https://github.com/schacon/ticgit (fetch)
+origin https://github.com/schacon/ticgit (push)
+pb https://github.com/paulboone/ticgit (fetch)
+pb https://github.com/paulboone/ticgit (push)
+</pre>
+</div>
+
+<p>
+查看origin远程仓库的信息：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git remote show origin
+ * remote origin
+Fetch URL: https://github.com/schacon/ticgit
+Push URL: https://github.com/schacon/ticgit
+HEAD branch: master
+Remote branches:
+master
+tracked
+dev-branch
+tracked
+Local branch configured for 'git pull':
+master merges with remote master
+Local ref configured for 'git push':
+master pushes to master (up to date)
+</pre>
+</div>
+
+<p>
+把pb重命名为paul：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git remote rename pb paul
+$ git remote #pb变成了paul
+origin
+paul
+</pre>
+</div>
+
+<p>
+移除paul远程仓库：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git remote rm paul
+$ git remote #paul仓库已删除
+origin
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 获取远程仓库数据</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+此时我想将pb上有而我没有的信息拉下来，可以执行：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git fetch pb
+remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (36/36), done.
+remote: Total 43 (delta 10), reused 31 (delta 5)
+Unpacking objects: 100% (43/43), done.
+From https://github.com/paulboone/ticgit
+ * [new branch]
+master -&gt; pb/master
+ * [new branch]
+ticgit -&gt; pb/ticgit
+</pre>
+</div>
+
+<p>
+正如你所看到的，要从远程项目中获取数据，可以执行：
+</p>
+<ul class="org-ul">
+<li><code>git fetch [remote-name]</code> 获取远程仓库中有而本地没有的数据
+</li>
+</ul>
+<p>
+如果你克隆了一个远程仓库，git会自动关联那个远程仓库，并取名为origin。
+值得注意的是， <code>git fetch</code> 只会下载数据，不会合并分支，你仍然需要手动合并。
+如果你现在所处于的分支关联了一个远程分支，
+你可以使用 <code>git pull</code> 命令来自动获取并尝试合并远程分支，有时使用 <code>git pull</code> 会更方便一些。
+</p>
+<ul class="org-ul">
+<li><code>git pull</code> 如果当前分支关联了一个远程分支，则自动获取并尝试合并远程分支
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> 向远程仓库中推送数据</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+当你写好了本地代码并做好了测试，你可能会想将其推送到远程仓库中。此时可以使用：
+</p>
+<ul class="org-ul">
+<li><code>git push [remote-name] [branch-name]</code> 推送本地分支到远程仓库    
+</li>
+</ul>
+<p>
+例如：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin master
+</pre>
+</div>
+
+<p>
+如果你有对远程仓库的写权限，并且之前没有其他人推送过代码，那你可以顺利推送。
+如果有人在你之前也推送过代码，你的推送请求会被拒绝，
+因为你要先使用 <code>fetch</code> <code>merge</code> 或 <code>pull</code> 的指令来与远程同步。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> 关联远程分支</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+假如在上一节中你成功推送了一个叫做serverfix的分支：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin serverfix
+Counting objects: 24, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (15/15), done.
+Writing objects: 100% (24/24), 1.91 KiB | 0 bytes/s, done.
+Total 24 (delta 2), reused 0 (delta 0)
+To https://github.com/schacon/simplegit
+ * [new branch]
+serverfix -&gt; serverfix
+</pre>
+</div>
+
+<p>
+此时远程仓库中会多了一个名为 <code>serverfix</code> 的分支。
+如果此时有另一个人从远程仓库中获取代码：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git fetch origin
+remote: Counting objects: 7, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 3 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From https://github.com/schacon/simplegit
+ * [new branch]
+serverfix -&gt; origin/serverfix
+</pre>
+</div>
+
+<p>
+那么他会在本地获得 <code>serverfix</code> 分支的引用，名为 <code>origin/serverfix</code> 。
+你可以执行 <code>git merge origin/serverfix</code> 来合并该远程分支。
+然而由于该分支只是一个引用，并没有实际数据，所以你并不能切换到它。
+如果你想拥有一个本地数据，可以：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout -b serverfix origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+Switched to a new branch 'serverfix'
+</pre>
+</div>
+
+<p>
+这样就建立了一个新的名为 <code>serverfix</code> 的分支，关联到远程分支，并且切换到了它。
+由于上述命令很常用，故git有一个它的简写：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout --track origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+Switched to a new branch 'serverfix'
+</pre>
+</div>
+
+<p>
+事实上，由于这个命令太常用了，git甚至有它的简写的简写。
+如果你要创建的分支名尚未存在，并且只与一个要关联的远程分支名相同，
+那么下面的命令会自动创建一个关联远程分支的本地分支，并切换到它：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+Switched to a new branch 'serverfix'
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5"><span class="section-number-3">4.5</span> 删除远程分支</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+假如在serverfix分支上已经完成了一个项目的新特性，该新特性已经加入了项目的master分支中，
+并且大家都不需要这个远程分支了，可以使用下面的命令删除远程分支：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin --delete serverfix
+To https://github.com/schacon/simplegit
+- [deleted] serverfix
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 项目协作</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> 私有小型项目协作</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+我们使用一个两人协作的例子来说明git的分布式协作流程。
+John和Jessica共同维护一个远程仓库。首先，Jonh克隆了这个远程仓库，
+做了一些修改，然后提交到了本地仓库中：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git clone john@githost:simplegit.git
+Cloning into 'simplegit'...
+...
+$ cd simplegit/
+$ vim lib/simplegit.rb
+$ git commit -am 'removed invalid default value'
+[master 738ee87] removed invalid default value
+1 files changed, 1 insertions(+), 1 deletions(-)
+</pre>
+</div>
+
+<p>
+然后，第二个开发者Jessica也作了同样的事，克隆了远程仓库并提交了本地更改。
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git clone jessica@githost:simplegit.git
+Cloning into 'simplegit'...
+...
+$ cd simplegit/
+$ vim TODO
+$ git commit -am 'add reset task'
+[master fbff5bc] add reset task
+1 files changed, 1 insertions(+), 0 deletions(-)
+</pre>
+</div>
+
+<p>
+现在，Jessica将她的工作推送到了远程仓库中：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin master
+...
+To jessica@githost:simplegit.git
+1edee6b..fbff5bc master -&gt; master
+</pre>
+</div>
+
+<p>
+John此时也希望推送自己的工作，却发现被拒绝了：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin master
+To john@githost:simplegit.git
+! [rejected]
+master -&gt; master (non-fast forward)
+error: failed to push some refs to 'john@githost:simplegit.git'
+</pre>
+</div>
+
+<p>
+因为Jessica已经改变了远程仓库中的文件，
+所以John此时必须首先获取远程仓库的最新数据：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git fetch origin
+...
+From john@githost:simplegit
++ 049d078...fbff5bc master -&gt; origin/master
+</pre>
+</div>
+
+<p>
+此时John的本地仓库状态如下所示：
+</p>
+
+<div id="git-workflow1" class="figure">
+<p><img src="./img/git-workflow1.png" alt="git-workflow1.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 9:</span> John的本地仓库历史（合并前）</p>
+</div>
+
+<p>
+可以看到，John本地有一个Jessica推送的新分支的引用 <code>origin/master</code> ，
+他必须把这个新分支合并到自己的工作中才能继续推送：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git merge origin/master
+Merge made by recursive.
+TODO | 1 +
+1 files changed, 1 insertions(+), 0 deletions(-)
+</pre>
+</div>
+
+<p>
+合并以后，John的本地仓库状态如下所示：
+</p>
+
+<div id="git-workflow2" class="figure">
+<p><img src="./img/git-workflow2.png" alt="git-workflow2.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 10:</span> John的本地仓库历史（合并后）</p>
+</div>
+
+<p>
+现在，John应该测试一下他的代码看看是否仍然正常工作，
+然后他就可以把自己合并后的工作推送到远程了：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin master
+...
+To john@githost:simplegit.git
+fbff5bc..72bbc59 master -&gt; master
+</pre>
+</div>
+
+<p>
+最终，John的本地仓库状态如下所示：
+</p>
+
+<div id="git-workflow3" class="figure">
+<p><img src="./img/git-workflow3.png" alt="git-workflow3.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 11:</span> John的本地仓库历史（提交远程后）</p>
+</div>
+
+<p>
+与此同时，Jessica在本地开启了一个新分支issue54并在此工作，
+她进行了三次本地提交，不过尚未获取John提交的内容。
+此时她的本地仓库状态如下所示：
+</p>
+
+<div id="git-workflow4" class="figure">
+<p><img src="./img/git-workflow4.png" alt="git-workflow4.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 12:</span> Jessica的本地仓库历史（获取John的数据前）</p>
+</div>
+
+<p>
+Jessica现在想与John新提交的数据同步，所以执行了 <code>fetch</code> 命令：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git fetch origin
+...
+From jessica@githost:simplegit
+fbff5bc..72bbc59 master -&gt; origin/master
+</pre>
+</div>
+
+<p>
+现在Jessica的本地库中有了John新提交内容的引用：
+</p>
+
+<div id="git-workflow5" class="figure">
+<p><img src="./img/git-workflow5.png" alt="git-workflow5.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 13:</span> Jessica的本地仓库历史（获取John的数据后）</p>
+</div>
+
+<p>
+Jessica觉得她的issue54分支已经写好了，
+但她想知道目前需要合并哪些分支才能推送出去，所以她执行了 <code>git log</code> 来查看历史：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git log --no-merges issue54..origin/master
+commit 738ee872852dfaa9d6634e0dea7a324040193016
+Author: John Smith &lt;jsmith@example.com&gt;
+Date: Fri May 29 16:01:27 2009 -0700
+removed invalid default value
+</pre>
+</div>
+
+<p>
+命令中的 <code>issue54..origin/master</code> 是一个log过滤器，
+它表示让log只显示 <code>origin/master</code> 中有而 <code>issue54</code> 中没有的提交。
+从结果中看，只有一个John推送的提交Jessica没有合并，
+它就是合并 <code>origin/master</code> 后唯一一个会改变Jessica本地库的提交。
+</p>
+
+<p>
+首先，Jessica要切换到 <code>master</code> 分支：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git checkout master
+Switched to branch 'master'
+Your branch is behind 'origin/master' by 2 commits, and can be fast-forwarded.
+</pre>
+</div>
+
+<p>
+现在，Jessica可以先合并 <code>origin/master</code> 或 <code>issue54</code> 分支。
+由于它们都是上游的分支，所以先合并哪一个都行:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git merge issue54
+Updating fbff5bc..4af4298
+Fast forward
+README | 1 +
+lib/simplegit.rb | 6 +++++-
+2 files changed, 6 insertions(+), 1 deletions(-)
+$ git merge origin/master
+Auto-merging lib/simplegit.rb
+Merge made by recursive.
+lib/simplegit.rb | 2 +-
+1 files changed, 1 insertions(+), 1 deletions(-)
+</pre>
+</div>
+
+<p>
+所有合并都已完成，Jessica的历史记录如下所示：
+</p>
+
+<div id="git-workflow6" class="figure">
+<p><img src="./img/git-workflow6.png" alt="git-workflow6.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 14:</span> Jessica的本地仓库历史（合并两个分支后）</p>
+</div>
+
+<p>
+现在Jessica可以推送自己的工作了（假设在此期间John没有推送）：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">$ git push origin master
+...
+To jessica@githost:simplegit.git
+72bbc59..8059c15 master -&gt; master
+</pre>
+</div>
+
+
+<div id="git-workflow7" class="figure">
+<p><img src="./img/git-workflow7.png" alt="git-workflow7.png" width="50%" />
+</p>
+<p><span class="figure-number">Figure 15:</span> Jessica的本地仓库历史（推送后）</p>
+</div>
+
+
+<p>
+这就是最简单的多人合作流程。你在某一个分支中进行自己的工作，
+然后不断合并到自己的master分支中。
+当你想要向远程推送时，首先要先获取并合并远程分支（通常是 <code>origin/master</code> ），
+然后把自己的分支推送到远程。
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 赵之旭</p>
+<p class="date">Created: 2017-09-21 四 09:57</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.1.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
